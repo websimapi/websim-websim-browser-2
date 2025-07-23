@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https://websim.com; frame-src 'self' https://websim.com; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline';">
+    <title>WebSim Browser</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="app">
+        <header class="header">
+            <div class="logo">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
+                    <path d="M16 2L30 9v14L16 30 2 23V9L16 2z" fill="#3B82F6"/>
+                    <path d="M16 9L24 13v8L16 25 8 21v-8L16 9z" fill="#60A5FA"/>
+                </svg>
+                <span>WebSim Browser</span>
+            </div>
+            <nav class="nav">
+                <button id="backBtn" class="nav-btn" title="Go Back">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 16a.5.5 0 0 1-.5-.5v-3.05a6 6 0 0 1 11.83-1H8.5a.5.5 0 0 1 0-1h5.5a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-.5.5H8Z"/>
+                        <path d="M2.354 8.146a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708.708L3.707 7.5H15.5a.5.5 0 0 1 0 1H3.707l5.355 5.146a.5.5 0 0 1-.708.708l-6-6Z"/>
+                    </svg>
+                </button>
+                <button id="forwardBtn" class="nav-btn" title="Go Forward">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 0a.5.5 0 0 1 .5.5v3.05a6 6 0 0 0 11.83 1H15.5a.5.5 0 0 1 0 1H10a.5.5 0 0 1-.5-.5v-5a.5.5 0 0 1 .5-.5H8Z"/>
+                        <path d="M13.646 7.146a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L12.293 8.5H.5a.5.5 0 0 1 0-1h11.793L7.146 2.354a.5.5 0 0 1 .708-.708l6 6Z"/>
+                    </svg>
+                </button>
+                <button id="reloadBtn" class="nav-btn" title="Reload">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+                        <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466Z"/>
+                    </svg>
+                </button>
+            </nav>
+            <div class="url-bar">
+                <input type="text" id="urlInput" placeholder="websim.com" readonly>
+                <button id="goBtn" class="go-btn">Go</button>
+            </div>
+            <div class="controls">
+                <button id="homeBtn" class="nav-btn" title="Go Home">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8.707 1.5a1 1 0 0 0-1.414 0L.646 8.146a.5.5 0 0 0 .708.708L2 8.207V13.5A1.5 1.5 0 0 0 3.5 15h9a1.5 1.5 0 0 0 1.5-1.5V8.207l.646.647a.5.5 0 0 0 .708-.708L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.707 1.5Z"/>
+                    </svg>
+                </button>
+                <button id="menuBtn" class="nav-btn" title="Menu">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="welcome-screen" id="welcomeScreen">
+                <div class="welcome-content">
+                    <h1>Welcome to WebSim Browser</h1>
+                    <p>A dedicated browser for WebSim.com</p>
+                    <button class="cta-button" id="startBtn">Launch WebSim</button>
+                </div>
+            </div>
+            <webview 
+                id="webView" 
+                src="https://websim.com" 
+                partition="persist:websim"
+                style="display: none;"
+                allowpopups="false"
+                useragent="WebSimBrowser/1.0.0"
+            ></webview>
+        </main>
+
+        <div class="loading" id="loadingScreen">
+            <div class="spinner"></div>
+            <p>Loading WebSim...</p>
+        </div>
+    </div>
+
+    <script src="renderer.js"></script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516" integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg==" data-cf-beacon='{"version":"2024.11.0","token":"4c6229722a6346bc8eb5cb0e5eae5d41","server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
+</body>
+</html>
+
